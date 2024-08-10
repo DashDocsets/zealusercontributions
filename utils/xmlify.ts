@@ -1,18 +1,25 @@
-export function xmlify(list) {
-  return (list || [])
-    .map((docset) => {
-      let urls = (docset.urls || [])
-        .map((url) => {
-          return `    <url>${url}</url>`;
-        })
-        .join("\n");
-      let other = (docset.specific_versions || [])
-        .map((v) => {
-          return `        <version><name>${v.version}</name></version>`;
-        })
-        .join("\n");
+export function xmlify(
+	list: Array<{
+		name: string;
+		urls: string[];
+		specific_versions?: Array<{ version: string }>;
+		version?: string;
+	}>,
+) {
+	return (list || [])
+		.map((docset) => {
+			const urls = (docset.urls || [])
+				.map((url) => {
+					return `    <url>${url}</url>`;
+				})
+				.join("\n");
+			const other = (docset.specific_versions || [])
+				.map((v) => {
+					return `        <version><name>${v.version}</name></version>`;
+				})
+				.join("\n");
 
-      return `\
+			return `\
           <entry>
             <name>${docset.name}</name>
             <version>${docset.version}</version>
@@ -21,7 +28,7 @@ export function xmlify(list) {
           ${other}
             </other-versions>
           </entry>`;
-    })
-    .join("\n")
-    .trim();
+		})
+		.join("\n")
+		.trim();
 }

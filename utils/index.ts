@@ -4,3 +4,4 @@ export * from "./getDocsets";
 export * from "./isEmpty";
 export * from "./isUndefined";
 export * from "./xmlify";
+export * from "./getGeneratedDocsets";

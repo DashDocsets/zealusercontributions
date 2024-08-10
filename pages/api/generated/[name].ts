@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getCheatSheets, xmlify } from "@/utils";
+import { getGeneratedDocsets, xmlify } from "@/utils";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -16,7 +16,7 @@ export default async function handler(
 		? name.replace(".json", "")
 		: name.replace(".xml", "");
 
-	const list = await getCheatSheets(trimmedName);
+	const list = await getGeneratedDocsets(trimmedName);
 	if (!isJson) {
 		res.setHeader("Content-Type", "application/xml");
 	}
