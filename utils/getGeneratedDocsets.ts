@@ -3,7 +3,8 @@ import { isUndefined } from "./isUndefined";
 
 export async function getGeneratedDocsets(filterName?: string) {
 	const response = await fetch(
-		"https://cdn.jsdelivr.net/gh/DashDocsets/docsets@master/docsets.json",
+		// "https://cdn.jsdelivr.net/gh/DashDocsets/docsets@master/docsets.json",
+		"https://raw.githubusercontent.com/DashDocsets/docsets/master/docsets.json",
 	);
 
 	const data = await response.json();
@@ -37,7 +38,8 @@ export async function getGeneratedDocsets(filterName?: string) {
 		const object = { ...val };
 		object.name = key;
 		object.urls = [
-			`https://cdn.jsdelivr.net/gh/DashDocsets/docsets@master/docsets/${key}.tgz`,
+			// `https://cdn.jsdelivr.net/gh/DashDocsets/docsets@master/docsets/${key}.tgz`,
+			`https://raw.githubusercontent.com/DashDocsets/docsets/master/docsets/${key}.tgz`,
 		];
 
 		return object;
