@@ -25,7 +25,7 @@ export default async function Search({
 	const _cheatsheets = await getCheatSheets();
 	const _generated = await getGeneratedDocsets();
 
-	const options: Fuse.IFuseOptions<any> = {
+	const options = {
 		keys: ["name"],
 		minMatchCharLength: 2,
 	};
