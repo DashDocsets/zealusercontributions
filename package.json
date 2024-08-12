@@ -12,6 +12,7 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "@mantine/hooks": "^7.12.1",
     "@nextui-org/react": "^2.4.6",
     "@types/react": "^18.3.3",
     "autoprefixer": "^10.4.20",

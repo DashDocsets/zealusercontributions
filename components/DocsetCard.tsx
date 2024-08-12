@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	type ParseResult,
 	type ParseResultListed,
@@ -16,8 +18,14 @@ import {
 
 import { BsCircle } from "react-icons/bs";
 import { MdRssFeed } from "react-icons/md";
+import {
+	IoOpenOutline,
+	IoClipboard,
+	IoClipboardOutline,
+} from "react-icons/io5";
 import { MdOutlineDownloading } from "react-icons/md";
 import { encodeURL } from "@/utils/encodeURL";
+import { useClipboard } from "@mantine/hooks";
 
 type Author = {
 	name: string;
@@ -50,6 +58,7 @@ export default function DocsetCard({
 	urls,
 	type,
 }: CardProps) {
+	const { copied, copy } = useClipboard({ timeout: 1000 });
 	const icon = icon2x || icon1x;
 	const authorName = author?.name;
 	const authorLink = author?.link;
@@ -67,7 +76,7 @@ export default function DocsetCard({
 					as="a"
 					key={url}
 					href={url}
-					download={true}
+					download
 					title={`Download .tgz docset from ${city ?? "main"}`}
 					aria-label={`Download .tgz docset from ${city ?? "main"}`}
 					color={isMain ? "primary" : "default"}
@@ -134,7 +143,14 @@ export default function DocsetCard({
 					rel="noreferrer noopener"
 					target="_blank"
 					variant="flat"
-					startContent={<MdRssFeed />}
+					endContent={<MdRssFeed />}
+					startContent={copied ? <IoClipboard /> : <IoClipboardOutline />}
+					onClick={(e) => {
+						e.preventDefault();
+						return copy(
+							`http://zealusercontributions.vercel.app/api/${type}/${name}.xml`,
+						);
+					}}
 				>
 					Feed URL
 				</Button>
@@ -154,6 +170,7 @@ export default function DocsetCard({
 					size="sm"
 					radius="full"
 					className="ml-auto"
+					startContent={<IoOpenOutline />}
 				>
 					Open in App
 				</Button>
