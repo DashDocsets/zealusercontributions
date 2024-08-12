@@ -1,4 +1,4 @@
-import Card from "./Card";
+import DocsetCard from "./DocsetCard";
 import Grid from "./Grid";
 import { getDocsets } from "@/utils";
 
@@ -8,7 +8,7 @@ export default async function DocsetsGrid() {
 	return (
 		<Grid>
 			{docsets.map((e) => (
-				<Card {...e} key={`docsets-${e.name}`} type="docsets" />
+				<DocsetCard {...e} key={`docsets-${e.name}`} type="docsets" />
 			))}
 		</Grid>
 	);

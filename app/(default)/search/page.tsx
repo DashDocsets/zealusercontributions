@@ -1,6 +1,6 @@
 import { getCheatSheets, getDocsets, getGeneratedDocsets } from "@/utils";
 
-import Card from "@/components/Card";
+import DocsetCard from "@/components/DocsetCard";
 import Fuse from "fuse.js";
 import Grid from "@/components/Grid";
 import Title from "@/components/Title";
@@ -44,13 +44,13 @@ export default async function Search({
 			) : null}
 			<Grid>
 				{generated.map((e) => (
-					<Card {...e} key={`docsets-${e.name}`} type="generated" />
+					<DocsetCard {...e} key={`docsets-${e.name}`} type="generated" />
 				))}
 			</Grid>
 			{docsets?.length ? <Title text="Docsets" id="#docsets" /> : null}
 			<Grid>
 				{docsets.map((e) => (
-					<Card {...e} key={`docsets-${e.name}`} type="docsets" />
+					<DocsetCard {...e} key={`docsets-${e.name}`} type="docsets" />
 				))}
 			</Grid>
 			{cheatsheets?.length ? (
@@ -58,7 +58,7 @@ export default async function Search({
 			) : null}
 			<Grid>
 				{cheatsheets.map((e) => (
-					<Card {...e} key={`docsets-${e.name}`} type="cheatsheets" />
+					<DocsetCard {...e} key={`docsets-${e.name}`} type="cheatsheets" />
 				))}
 			</Grid>
 			{!generated?.length && !docsets?.length && !cheatsheets?.length ? (

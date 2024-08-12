@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function Navbar({ isHome = false }: { isHome?: boolean }) {
 	return (
-		<nav className="flex bg-gray-200 sm:sticky sm:top-0 shadow-xs z-10 py-2">
+		<nav className="flex bg-gray-200 sm:sticky sm:top-0 shadow-xs z-50 py-2">
 			<div className="flex flex-col sm:flex-row container mx-auto px-4">
 				{!isHome && (
 					<ul className="flex py-2 items-center justify-between sm:justify-center gap-4">

@@ -1,9 +1,9 @@
 import "../../styles/main.css";
 
 import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import { Providers } from "./Providers";
 
 const inter = Inter({
 	variable: "--font-inter",
@@ -17,7 +17,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html className={inter.variable}>
+		<html lang="en" className={inter.variable}>
 			<head>
 				<title>Zeal User Contributions & Cheat Sheets</title>
 				<meta
@@ -60,9 +60,11 @@ export default function RootLayout({
 				/>
 			</head>
 			<body>
-				<Navbar />
-				<main className="container mx-auto mb-4 min-h-svh">{children}</main>
-				<Footer />
+				<Providers>
+					<Navbar />
+					<main className="container mx-auto mb-4 min-h-svh">{children}</main>
+					<Footer />
+				</Providers>
 			</body>
 		</html>
 	);

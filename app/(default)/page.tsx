@@ -1,10 +1,12 @@
 import { FcApproval, FcBookmark, FcDocument, FcInfo } from "react-icons/fc";
 
 import Link from "next/link";
+import Hero from "@/components/Hero";
 
 export default async function Index() {
 	return (
 		<>
+			<Hero />
 			<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 items-stretch mt-8 gap-4 w-full px-4">
 				<Link
 					className="min-w-[16rem] bg-slate-300 hover:bg-slate-900 hover:text-slate-100 rounded-lg transition-colors cursor-pointer flex items-center justify-center gap-1 text-2xl xl:text-3xl w-full py-16"
