@@ -59,10 +59,10 @@ export default function RootLayout({
 					content="Non-Official Zeal User Contributions & Cheat Sheets Repository - Create by xantiagoma"
 				/>
 			</head>
-			<body>
+			<body className="min-h-svh">
 				<Providers>
 					<Navbar />
-					<main className="container mx-auto mb-4 min-h-svh">{children}</main>
+					<main className="container mx-auto mb-4">{children}</main>
 					<Footer />
 				</Providers>
 			</body>
