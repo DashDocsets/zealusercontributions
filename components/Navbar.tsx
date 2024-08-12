@@ -5,40 +5,55 @@ import {
 	NavbarBrand,
 	NavbarContent,
 	NavbarItem,
+	NavbarMenu,
+	NavbarMenuToggle,
 } from "@nextui-org/react";
 
 import Link from "next/link";
 import { IoSearch } from "react-icons/io5";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function Navbar() {
 	const pathname = usePathname();
-	console.log({ pathname });
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const items = (
+		<>
+			<NavbarItem isActive={pathname === "/docsets"}>
+				<Link href="/docsets">Docsets</Link>
+			</NavbarItem>
+			<NavbarItem isActive={pathname === "/cheatsheets"}>
+				<Link href="/cheatsheets">Cheat Sheets</Link>
+			</NavbarItem>
+			<NavbarItem isActive={pathname === "/generated"}>
+				<Link href="/generated">Generated Docsets</Link>
+			</NavbarItem>
+			<NavbarItem isActive={pathname === "/docs"}>
+				<Link href="/docs">Docs</Link>
+			</NavbarItem>
+		</>
+	);
+
 	return (
-		<NavbarComponent>
+		<NavbarComponent isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
 			<NavbarBrand>
+				<NavbarMenuToggle
+					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+					className="lg:hidden mr-2"
+				/>
 				<Link href="/" className="flex gap-2 items-center">
 					<img
 						src="/favicon-192.png"
 						alt="Zeal Logo"
 						className="size-8 inline"
 					/>
-					<p className="text-small font-bold">Zeal User Contributions</p>
+					<p className="text-small font-bold hidden lg:flex">
+						Zeal User Contributions
+					</p>
 				</Link>
 			</NavbarBrand>
-			<NavbarContent className="hidden sm:flex gap-4" justify="center">
-				<NavbarItem isActive={pathname === "/docsets"}>
-					<Link href="/docsets">Docsets</Link>
-				</NavbarItem>
-				<NavbarItem isActive={pathname === "/cheatsheets"}>
-					<Link href="/cheatsheets">Cheat Sheets</Link>
-				</NavbarItem>
-				<NavbarItem isActive={pathname === "/generated"}>
-					<Link href="/generated">Generated Docsets</Link>
-				</NavbarItem>
-				<NavbarItem isActive={pathname === "/docs"}>
-					<Link href="/docs">Docs</Link>
-				</NavbarItem>
+			<NavbarContent className="hidden lg:flex gap-4" justify="center">
+				{items}
 			</NavbarContent>
 			<NavbarContent justify="end">
 				<form action="/search" method="GET" role="search">
@@ -55,6 +70,7 @@ export default function Navbar() {
 					</div>
 				</form>
 			</NavbarContent>
+			<NavbarMenu>{items}</NavbarMenu>
 		</NavbarComponent>
 	);
 }
