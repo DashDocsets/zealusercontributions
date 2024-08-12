@@ -36,3 +36,25 @@ export async function getCheatSheets(filterName?: string) {
 
 	return list;
 }
+
+export async function getAllCheatSheets() {
+	const response = await fetch(
+		"https://kapeli.com/feeds/zzz/cheatsheets/cheat.json",
+	);
+	const text = await response.text();
+	const data = JSON5.parse(text).cheatsheets || {};
+
+	const list = Object.keys(data).map((key) => {
+		const val = data[key];
+		const object = { ...val };
+		object.name = key;
+		object.archive = `${key}.tgz`;
+		object.urls = CDNs.map((city) => {
+			return `https://${city}kapeli.com/feeds/zzz/cheatsheets/${key}.tgz`;
+		});
+
+		return object;
+	});
+
+	return list;
+}

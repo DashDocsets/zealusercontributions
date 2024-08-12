@@ -13,20 +13,26 @@ export function xmlify(
 					return `    <url>${url}</url>`;
 				})
 				.join("\n");
-			const other = (docset.specific_versions || [])
-				.map((v) => {
-					return `        <version><name>${v.version}</name></version>`;
-				})
-				.join("\n");
+			const other = docset.specific_versions
+				? docset.specific_versions
+						.map((v) => {
+							return `        <version><name>${v.version}</name></version>`;
+						})
+						.join("\n")
+				: "";
 
 			return `\
           <entry>
             <name>${docset.name}</name>
             <version>${docset.version}</version>
           ${urls}
-            <other-versions>
+		  ${
+				other
+					? `<other-versions>
           ${other}
-            </other-versions>
+            </other-versions>`
+					: ""
+			}
           </entry>`;
 		})
 		.join("\n")
