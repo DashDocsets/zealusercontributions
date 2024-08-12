@@ -156,7 +156,7 @@ export default function DocsetCard({
 				</Button>
 			</CardHeader>
 			<CardBody className="px-3 py-2 text-small text-default-400">
-				<ul className="grid grid-cols-4 gap-2 flex-wrap">{urls_}</ul>
+				<ul className="grid grid-cols-4 gap-2 flex-wrap mt-auto">{urls_}</ul>
 			</CardBody>
 			<CardFooter className="gap-3">
 				<Button
