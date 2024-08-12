@@ -7,6 +7,7 @@ import {
 
 import { BsCircle } from "react-icons/bs";
 import { MdOutlineDownloading } from "react-icons/md";
+import Img from "./Img";
 
 type Author = {
 	name: string;
@@ -15,7 +16,7 @@ type Author = {
 
 type CardProps = {
 	name: string;
-	version?: any;
+	version?: string;
 	"icon@2x"?: string;
 	icon?: string;
 	author?: Author;
@@ -74,22 +75,29 @@ export default function Card({
 		);
 	});
 
+	const src =
+		type === "generated"
+			? `https://raw.githubusercontent.com/DashDocsets/docsets/master/images/${name}.png`
+			: icon
+				? `data:image/png;base64,${icon}`
+				: undefined;
+
 	return (
 		<div
 			className="rounded-lg bg-gray-50 grid grid-cols-[1fr_auto] overflow-hidden aspect-video"
 			id={id}
 		>
 			<div className="flex flex-col p-4 pb-2">
-				{icon ? (
-					<img
-						className="object-contain object-top w-10 h-10 mb-auto rounded"
-						src={`data:image/png;base64,${icon}`}
-						alt={`${name} icon`}
-						title={`${name} icon`}
-					/>
-				) : (
-					<BsCircle className="w-10 h-10 mb-auto fill-slate-400" />
-				)}
+				<Img
+					loading="lazy"
+					className="object-contain object-top w-10 h-10 mb-auto rounded"
+					src={src}
+					alt={`${name} icon`}
+					title={`${name} icon`}
+					forceFallbackIfNotSrc
+					fallback={<BsCircle className="w-10 h-10 mb-auto fill-slate-400" />}
+				/>
+
 				{author && (
 					<span className="text-sm -mb-1 text-slate-300">
 						by{" "}
