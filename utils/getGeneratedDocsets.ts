@@ -39,7 +39,9 @@ export async function getGeneratedDocsets(filterName?: string) {
 		object.name = key;
 		object.urls = [
 			// `https://cdn.jsdelivr.net/gh/DashDocsets/docsets@master/docsets/${key}.tgz`,
-			`https://raw.githubusercontent.com/DashDocsets/docsets/master/docsets/${key}.tgz`,
+			// `https://raw.githubusercontent.com/DashDocsets/docsets/master/docsets/${key}.tgz`,
+			// GIT LFS
+			`https://media.githubusercontent.com/media/DashDocsets/docsets/master/docsets/${key}.tgz`,
 		];
 
 		return object;
