@@ -6,7 +6,7 @@ export const revalidate = 300;
 export default async function Generated() {
 	return (
 		<>
-			<div className="h-56 flex flex-col items-center justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-3xl p-8 shadow-md">
+			<div className="min-h-56 flex flex-col items-center justify-center bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-3xl p-8 shadow-md mx-4">
 				<h2 className="text-white text-3xl font-bold text-center">
 					You probably already have available this docsets in your docs App
 					<br />
