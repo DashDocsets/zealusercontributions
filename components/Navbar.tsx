@@ -19,19 +19,34 @@ export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const items = (
 		<>
-			<NavbarItem isActive={pathname === "/official"}>
+			<NavbarItem
+				onClick={() => setIsMenuOpen(false)}
+				isActive={pathname === "/official"}
+			>
 				<Link href="/official">Official</Link>
 			</NavbarItem>
-			<NavbarItem isActive={pathname === "/docsets"}>
+			<NavbarItem
+				onClick={() => setIsMenuOpen(false)}
+				isActive={pathname === "/docsets"}
+			>
 				<Link href="/docsets">User Contributions</Link>
 			</NavbarItem>
-			<NavbarItem isActive={pathname === "/generated"}>
+			<NavbarItem
+				onClick={() => setIsMenuOpen(false)}
+				isActive={pathname === "/generated"}
+			>
 				<Link href="/generated">Generated</Link>
 			</NavbarItem>
-			<NavbarItem isActive={pathname === "/cheatsheets"}>
+			<NavbarItem
+				onClick={() => setIsMenuOpen(false)}
+				isActive={pathname === "/cheatsheets"}
+			>
 				<Link href="/cheatsheets">Cheat Sheets</Link>
 			</NavbarItem>
-			<NavbarItem isActive={pathname === "/docs"}>
+			<NavbarItem
+				onClick={() => setIsMenuOpen(false)}
+				isActive={pathname === "/docs"}
+			>
 				<Link href="/docs">Docs</Link>
 			</NavbarItem>
 		</>
@@ -73,7 +88,9 @@ export default function Navbar() {
 					</div>
 				</form>
 			</NavbarContent>
-			<NavbarMenu>{items}</NavbarMenu>
+			<NavbarMenu className="[&_li]:contents [&_a]:p-2 [&_a]:w-full">
+				{items}
+			</NavbarMenu>
 		</NavbarComponent>
 	);
 }
