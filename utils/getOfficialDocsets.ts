@@ -1,10 +1,9 @@
 import { load } from "cheerio";
-import { cache } from "react";
 import { CDNs } from "./constants";
 import { isEmpty } from "./isEmpty";
 import { isUndefined } from "./isUndefined";
 
-const getOfficialList = cache(async () => {
+const getOfficialList = async () => {
 	const result = await fetch(
 		"https://cdn.jsdelivr.net/gh/Kapeli/feeds@master/",
 	);
@@ -16,9 +15,9 @@ const getOfficialList = cache(async () => {
 		}),
 	).filter((item) => item.endsWith(".xml"));
 	return list;
-});
+};
 
-const getOfficialListInJSON = cache(async () => {
+const getOfficialListInJSON = async () => {
 	const list = await getOfficialList();
 	const docsets = list.reduce((acc, item) => {
 		const name = item.replace(".xml", "");
@@ -35,9 +34,9 @@ const getOfficialListInJSON = cache(async () => {
 		return acc;
 	}, {});
 	return { docsets };
-});
+};
 
-export const getOfficialDocsets = cache(async (filterName?: string) => {
+export const getOfficialDocsets = async (filterName?: string) => {
 	const data = await getOfficialListInJSON();
 	let docsets: Record<
 		string,
@@ -75,9 +74,9 @@ export const getOfficialDocsets = cache(async (filterName?: string) => {
 	});
 
 	return list;
-});
+};
 
-export const getAllOfficialDocsets = cache(async () => {
+export const getAllOfficialDocsets = async () => {
 	const data = await getOfficialListInJSON();
 	const docsets: Record<
 		string,
@@ -100,4 +99,4 @@ export const getAllOfficialDocsets = cache(async () => {
 	});
 
 	return list;
-});
+};

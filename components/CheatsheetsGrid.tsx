@@ -1,6 +1,9 @@
 import DocsetCard from "./DocsetCard";
 import Grid from "./Grid";
-import { getCheatSheets } from "@/utils";
+import { getCheatSheets as _getCheatSheets } from "@/utils";
+import { cache } from "react";
+
+const getCheatSheets = cache(_getCheatSheets);
 
 export default async function CheatsheetsGrid() {
 	const cheatsheets = await getCheatSheets();

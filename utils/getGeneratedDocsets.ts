@@ -1,8 +1,7 @@
-import { cache } from "react";
 import { isEmpty } from "./isEmpty";
 import { isUndefined } from "./isUndefined";
 
-export const getGeneratedDocsets = cache(async (filterName?: string) => {
+export const getGeneratedDocsets = async (filterName?: string) => {
 	const response = await fetch(
 		// "https://cdn.jsdelivr.net/gh/DashDocsets/docsets@master/docsets.json",
 		"https://raw.githubusercontent.com/DashDocsets/docsets/master/docsets.json",
@@ -49,9 +48,9 @@ export const getGeneratedDocsets = cache(async (filterName?: string) => {
 	});
 
 	return list;
-});
+};
 
-export const getAllGeneratedDocsets = cache(async () => {
+export const getAllGeneratedDocsets = async () => {
 	const response = await fetch(
 		// "https://cdn.jsdelivr.net/gh/DashDocsets/docsets@master/docsets.json",
 		"https://raw.githubusercontent.com/DashDocsets/docsets/master/docsets.json",
@@ -83,4 +82,4 @@ export const getAllGeneratedDocsets = cache(async () => {
 	});
 
 	return list;
-});
+};

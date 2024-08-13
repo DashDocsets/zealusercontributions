@@ -1,6 +1,9 @@
 import DocsetCard from "./DocsetCard";
 import Grid from "./Grid";
-import { getDocsets } from "@/utils";
+import { getDocsets as _getDocsets } from "@/utils";
+import { cache } from "react";
+
+const getDocsets = cache(_getDocsets);
 
 export default async function DocsetsGrid() {
 	const docsets = await getDocsets();

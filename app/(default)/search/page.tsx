@@ -1,14 +1,20 @@
+import { cache } from "react";
 import {
-	getCheatSheets,
-	getDocsets,
-	getGeneratedDocsets,
-	getOfficialDocsets,
+	getCheatSheets as _getCheatSheets,
+	getDocsets as _getDocsets,
+	getGeneratedDocsets as _getGeneratedDocsets,
+	getOfficialDocsets as _getOfficialDocsets,
 } from "@/utils";
 
 import DocsetCard from "@/components/DocsetCard";
 import Fuse from "fuse.js";
 import Grid from "@/components/Grid";
 import Title from "@/components/Title";
+
+const getCheatSheets = cache(_getCheatSheets);
+const getDocsets = cache(_getDocsets);
+const getGeneratedDocsets = cache(_getGeneratedDocsets);
+const getOfficialDocsets = cache(_getOfficialDocsets);
 
 export const revalidate = 300;
 

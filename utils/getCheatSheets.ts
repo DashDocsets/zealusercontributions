@@ -2,9 +2,8 @@ import { CDNs } from "./constants";
 import { isEmpty } from "./isEmpty";
 import { isUndefined } from "./isUndefined";
 import JSON5 from "json5";
-import { cache } from "react";
 
-export const getCheatSheets = cache(async (filterName?: string) => {
+export const getCheatSheets = async (filterName?: string) => {
 	const response = await fetch(
 		"https://kapeli.com/feeds/zzz/cheatsheets/cheat.json",
 	);
@@ -36,9 +35,9 @@ export const getCheatSheets = cache(async (filterName?: string) => {
 	});
 
 	return list;
-});
+};
 
-export const getAllCheatSheets = cache(async () => {
+export const getAllCheatSheets = async () => {
 	const response = await fetch(
 		"https://kapeli.com/feeds/zzz/cheatsheets/cheat.json",
 	);
@@ -58,4 +57,4 @@ export const getAllCheatSheets = cache(async () => {
 	});
 
 	return list;
-});
+};
