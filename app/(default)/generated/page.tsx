@@ -22,8 +22,9 @@ export default async function Official() {
 					</a>
 				</p>
 				<p className="text-white/60 text-md text-center mt-4">
-					When using Zeal or Velocity, you can also use this feeds to install
-					docsets.
+					When using Dash, Zeal or Velocity, use Feed URL to install docsets.
+					<br /> On Dash you can also click on "Open in App" to automatically
+					open the docset in Dash.
 				</p>
 			</div>
 			<Title id="geneted" text="Generated Docsets" />
