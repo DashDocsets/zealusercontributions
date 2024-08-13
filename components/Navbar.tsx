@@ -59,11 +59,11 @@ export default function Navbar() {
 					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
 					className="lg:hidden mr-2 !size-6"
 				/>
-				<Link href="/" className="flex gap-2 items-center">
+				<Link href="/" className="flex gap-2 items-center shrink-0">
 					<img
 						src="/favicon-192.png"
 						alt="Zeal Logo"
-						className="size-8 inline"
+						className="size-8 inline shrink-0"
 					/>
 					<p className="text-small font-bold hidden lg:flex">
 						Zeal User Contributions
@@ -74,12 +74,12 @@ export default function Navbar() {
 				{items}
 			</NavbarContent>
 			<NavbarContent justify="end">
-				<form action="/search" method="GET" role="search">
-					<div className="relative text-gray-600">
+				<form action="/search" method="GET" role="search" className="contents">
+					<div className="relative text-gray-600 shrink">
 						<input
 							type="search"
 							name="q"
-							className="bg-gray-100 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+							className="bg-gray-100 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none max-w-56"
 							placeholder="Search..."
 						/>
 						<button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
