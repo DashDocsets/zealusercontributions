@@ -19,14 +19,17 @@ export default function Navbar() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const items = (
 		<>
+			<NavbarItem isActive={pathname === "/official"}>
+				<Link href="/official">Official</Link>
+			</NavbarItem>
 			<NavbarItem isActive={pathname === "/docsets"}>
-				<Link href="/docsets">Docsets</Link>
+				<Link href="/docsets">User Contributions</Link>
+			</NavbarItem>
+			<NavbarItem isActive={pathname === "/generated"}>
+				<Link href="/generated">Generated</Link>
 			</NavbarItem>
 			<NavbarItem isActive={pathname === "/cheatsheets"}>
 				<Link href="/cheatsheets">Cheat Sheets</Link>
-			</NavbarItem>
-			<NavbarItem isActive={pathname === "/generated"}>
-				<Link href="/generated">Generated Docsets</Link>
 			</NavbarItem>
 			<NavbarItem isActive={pathname === "/docs"}>
 				<Link href="/docs">Docs</Link>

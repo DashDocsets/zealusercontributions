@@ -39,7 +39,7 @@ type CardProps = {
 	icon?: string;
 	author?: Author;
 	urls: Array<string>;
-	type: "docsets" | "cheatsheets" | "generated";
+	type: "docsets" | "cheatsheets" | "generated" | "official";
 };
 
 const cityCodes = {
@@ -63,7 +63,6 @@ export default function DocsetCard({
 	const authorName = author?.name;
 	const authorLink = author?.link;
 	const id: string = `${type}-${name}`;
-	const href: string = `#${id}`;
 
 	const urls_ = urls.map((url, index) => {
 		const urlData: ParseResult = parseDomain(fromUrl(url)) as ParseResultListed;
@@ -106,6 +105,11 @@ export default function DocsetCard({
 				? `data:image/png;base64,${icon}`
 				: undefined;
 
+	const feedURL =
+		type === "official"
+			? `https://raw.githubusercontent.com/Kapeli/feeds/master/${name}.xml`
+			: `http://zealusercontributions.vercel.app/api/${type}/${name}.xml`;
+
 	return (
 		<Card>
 			<CardHeader className="gap-3 items-start max-w-full pt-4">
@@ -117,8 +121,8 @@ export default function DocsetCard({
 					src={src}
 					fallback={<BsCircle className="w-10 h-10 mb-auto fill-slate-400" />}
 				/>
-				<div className="flex flex-col gap-1 items-start justify-center max-w-full">
-					<h4 className="text-large font-semibold leading-none flex gap-1 items-center">
+				<div className="flex flex-col gap-1 items-start justify-center max-w-full shrink-1">
+					<h4 className="text-large font-semibold leading-none flex gap-1 items-center break-words">
 						{name?.replaceAll("_", " ")}
 					</h4>
 					{author && (
@@ -129,9 +133,17 @@ export default function DocsetCard({
 							</a>
 						</span>
 					)}
-					<Chip size="sm" variant="flat" color="default">
-						{version}
-					</Chip>
+					{version ? (
+						<Chip
+							size="sm"
+							variant="flat"
+							color="default"
+							className="truncate max-w-28"
+							classNames={{ content: "truncate max-w-28" }}
+						>
+							{version}
+						</Chip>
+					) : null}
 				</div>
 				<Button
 					className="shrink-0 ml-auto"
@@ -139,7 +151,7 @@ export default function DocsetCard({
 					color="secondary"
 					radius="full"
 					size="sm"
-					href={`/api/${type}/${name}.xml`}
+					href={feedURL}
 					rel="noreferrer noopener"
 					target="_blank"
 					variant="flat"
@@ -147,9 +159,7 @@ export default function DocsetCard({
 					startContent={copied ? <IoClipboard /> : <IoClipboardOutline />}
 					onClick={(e) => {
 						e.preventDefault();
-						return copy(
-							`http://zealusercontributions.vercel.app/api/${type}/${name}.xml`,
-						);
+						return copy(feedURL);
 					}}
 				>
 					Feed URL
@@ -162,7 +172,7 @@ export default function DocsetCard({
 				<Button
 					as="a"
 					aria-label="Open in Dash"
-					href={`dash-feed://${encodeURL(`http://zealusercontributions.vercel.app/api/${type}/${name}.xml`)}`}
+					href={`dash-feed://${encodeURL(feedURL)}`}
 					target="_blank"
 					rel="noreferrer noopener"
 					variant="light"
