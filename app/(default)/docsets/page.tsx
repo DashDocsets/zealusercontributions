@@ -1,7 +1,7 @@
 import DocsetsGrid from "@/components/DocsetsGrid";
 import Title from "@/components/Title";
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 export default async function Docsets() {
 	return (

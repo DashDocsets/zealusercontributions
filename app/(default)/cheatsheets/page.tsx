@@ -1,7 +1,7 @@
 import CheatsheetsGrid from "@/components/CheatsheetsGrid";
 import Title from "@/components/Title";
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 export default async function Cheatsheets() {
 	return (

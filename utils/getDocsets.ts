@@ -1,8 +1,9 @@
+import { cache } from "react";
 import { CDNs } from "./constants";
 import { isEmpty } from "./isEmpty";
 import { isUndefined } from "./isUndefined";
 
-export async function getDocsets(filterName?: string) {
+export const getDocsets = cache(async (filterName?: string) => {
 	const response = await fetch(
 		"https://kapeli.com/feeds/zzz/user_contributed/build/index.json",
 	);
@@ -45,9 +46,9 @@ export async function getDocsets(filterName?: string) {
 	});
 
 	return list;
-}
+});
 
-export async function getAllDocsets() {
+export const getAllDocsets = cache(async () => {
 	const response = await fetch(
 		"https://kapeli.com/feeds/zzz/user_contributed/build/index.json",
 	);
@@ -75,4 +76,4 @@ export async function getAllDocsets() {
 	});
 
 	return list;
-}
+});

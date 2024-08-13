@@ -10,7 +10,7 @@ import Fuse from "fuse.js";
 import Grid from "@/components/Grid";
 import Title from "@/components/Title";
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 export default async function Search({
 	searchParams,
