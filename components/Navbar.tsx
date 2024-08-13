@@ -42,7 +42,7 @@ export default function Navbar() {
 			<NavbarBrand>
 				<NavbarMenuToggle
 					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-					className="lg:hidden mr-2"
+					className="lg:hidden mr-2 !size-6"
 				/>
 				<Link href="/" className="flex gap-2 items-center">
 					<img
