@@ -10,7 +10,10 @@ export const getCheatSheets = async (filterName?: string) => {
 	const text = await response.text();
 	const data = JSON5.parse(text).cheatsheets || {};
 
-	let cheatsheets = data;
+	let cheatsheets: Record<
+		string,
+		{ name: string; urls: string[]; archive: string }
+	> = data;
 
 	if (!isUndefined(filterName) && !isEmpty(filterName)) {
 		const t = {};

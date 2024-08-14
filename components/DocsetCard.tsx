@@ -22,17 +22,23 @@ import {
 	IoOpenOutline,
 	IoClipboard,
 	IoClipboardOutline,
+	IoCheckmarkCircle,
+	IoPeopleCircleOutline,
+	IoCloudCircleSharp,
+	IoListCircle,
 } from "react-icons/io5";
 import { MdOutlineDownloading } from "react-icons/md";
 import { encodeURL } from "@/utils/encodeURL";
 import { useClipboard } from "@mantine/hooks";
+import Img from "./Img";
+import { ImgProps } from "next/dist/shared/lib/get-img-props";
 
 type Author = {
 	name: string;
 	link: string;
 };
 
-type CardProps = {
+export type DocsetCardProps = {
 	name: string;
 	version?: string;
 	"icon@2x"?: string;
@@ -57,7 +63,7 @@ export default function DocsetCard({
 	author,
 	urls,
 	type,
-}: CardProps) {
+}: DocsetCardProps) {
 	const { copied, copy } = useClipboard({ timeout: 1000 });
 	const icon = icon2x || icon1x;
 	const authorName = author?.name;
@@ -110,6 +116,19 @@ export default function DocsetCard({
 			? `https://raw.githubusercontent.com/Kapeli/feeds/master/${name}.xml`
 			: `http://zealusercontributions.vercel.app/api/${type}/${name}.xml`;
 
+	const fallback = (() => {
+		if (type === "official") {
+			return <IoCheckmarkCircle className="text-success size-10 inset-0" />;
+		}
+		if (type === "docsets") {
+			return <IoPeopleCircleOutline className="text-primary size-10 inset-0" />;
+		}
+		if (type === "generated") {
+			return <IoCloudCircleSharp className="text-secondary size-10 inset-0" />;
+		}
+		return <IoListCircle className="text-danger size-10 inset-0" />;
+	})();
+
 	return (
 		<Card>
 			<CardHeader className="gap-3 items-start max-w-full pt-4">
@@ -119,7 +138,10 @@ export default function DocsetCard({
 					isBordered
 					size="md"
 					src={src}
-					fallback={<BsCircle className="w-10 h-10 mb-auto fill-slate-400" />}
+					fallback={fallback}
+					ImgComponent={(props: ImgProps) => (
+						<Img fallback={<div>{fallback}</div>} {...props} />
+					)}
 				/>
 				<div className="flex flex-col gap-1 items-start justify-center max-w-full shrink-1">
 					<h4 className="text-large font-semibold leading-none flex gap-1 items-center break-words">

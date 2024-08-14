@@ -6,8 +6,8 @@ import {
 	getOfficialDocsets as _getOfficialDocsets,
 } from "@/utils";
 
-import DocsetCard from "@/components/DocsetCard";
-import Fuse from "fuse.js";
+import DocsetCard, { type DocsetCardProps } from "@/components/DocsetCard";
+import Fuse, { type IFuseOptions } from "fuse.js";
 import Grid from "@/components/Grid";
 import Title from "@/components/Title";
 
@@ -29,7 +29,11 @@ export default async function Search({
 	const query = q?.trim();
 
 	if (!query) {
-		return <>Start Searching...</>;
+		return (
+			<div className="text-3xl text-center text-gray-400">
+				Start Searching...
+			</div>
+		);
 	}
 
 	const _docsets = await getDocsets();
@@ -37,89 +41,70 @@ export default async function Search({
 	const _generated = await getGeneratedDocsets();
 	const _official = await getOfficialDocsets();
 
-	const options = {
+	const docsets = _docsets.map((e) => ({
+		...e,
+		type: "docsets" as DocsetCardProps["type"],
+	}));
+	const cheatsheets = _cheatsheets.map((e) => ({
+		...e,
+		type: "cheatsheets" as DocsetCardProps["type"],
+	}));
+	const generated = _generated.map((e) => ({
+		...e,
+		type: "generated" as DocsetCardProps["type"],
+	}));
+	const official = _official.map((e) => ({
+		...e,
+		type: "official" as DocsetCardProps["type"],
+	}));
+
+	const options: IFuseOptions<{
+		name: string;
+		urls: string[];
+		type: DocsetCardProps["type"];
+	}> = {
 		keys: ["name"],
 		minMatchCharLength: 2,
 	};
-	const docsets = new Fuse(_docsets, options).search(query).map((e) => e.item);
-	const cheatsheets = new Fuse(_cheatsheets, options)
-		.search(query)
-		.map((e) => e.item);
-	const generated = new Fuse(_generated, options)
-		.search(query)
-		.map((e) => e.item);
-	const official = new Fuse(_official, options)
-		.search(query)
-		.map((e) => e.item);
+
+	const items = new Fuse(
+		[...generated, ...docsets, ...cheatsheets, ...official],
+		options,
+	).search(query);
 
 	return (
 		<>
-			{generated?.length ? (
+			{items?.length ? (
 				<>
-					<Title text="Generated Docsets" id="#generated" />
-					<p className="-mt-8 mb-8 px-4 text-default-400">
-						Generated Extra-Docsets not in Official or User Contributions.
-					</p>
+					<Title
+						text={
+							<>
+								Search Results for{" "}
+								<code className="px-4 py-1.5 bg-primary-50 rounded">
+									{query}
+								</code>
+							</>
+						}
+					/>
+					<Grid>
+						{items.map((e) => (
+							<DocsetCard
+								{...e.item}
+								key={`${e.item.type}-${e.item.name}`}
+								type={e.item.type}
+							/>
+						))}
+					</Grid>
 				</>
-			) : null}
-			<Grid>
-				{generated.map((e) => (
-					<DocsetCard {...e} key={`docsets-${e.name}`} type="generated" />
-				))}
-			</Grid>
-			{docsets?.length ? (
-				<>
-					<Title text="User Contributions Docsets" id="#docsets" />
-					<p className="-mt-8 mb-8 px-4 text-default-400">
-						User Contributions Docsets. (if you're using Dash, you already have
-						access to this in your docs app)
-					</p>
-				</>
-			) : null}
-			<Grid>
-				{docsets.map((e) => (
-					<DocsetCard {...e} key={`docsets-${e.name}`} type="docsets" />
-				))}
-			</Grid>
-			{official?.length ? (
-				<>
-					<Title text="Official" id="#official" />
-					<p className="-mt-8 mb-8 px-4 text-default-400">
-						Official Docsets. (most probably you already have access to this in
-						your docs app)
-					</p>
-				</>
-			) : null}
-			<Grid>
-				{official.map((e) => (
-					<DocsetCard {...e} key={`docsets-${e.name}`} type="official" />
-				))}
-			</Grid>
-			{cheatsheets?.length ? (
-				<>
-					<Title text="Cheatsheets" id="#cheatsheets" />
-					<p className="-mt-8 mb-8 px-4 text-default-400">
-						Cheatsheets. (if you're using Dash, you already have access to this
-						in your docs app)
-					</p>
-				</>
-			) : null}
-			<Grid>
-				{cheatsheets.map((e) => (
-					<DocsetCard {...e} key={`docsets-${e.name}`} type="cheatsheets" />
-				))}
-			</Grid>
-			{!generated?.length &&
-			!docsets?.length &&
-			!cheatsheets?.length &&
-			!official?.length ? (
+			) : (
 				<div className="flex flex-col items-center justify-center py-14">
 					<h1 className="text-2xl font-bold">No results found</h1>
 					<p className="text-lg">
 						Try searching for something else or check the tabs.
 					</p>
 				</div>
-			) : null}
+			)}
+
 			<div className="mb-8" />
 		</>
 	);

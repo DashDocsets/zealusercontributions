@@ -1,7 +1,5 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
-export default async function SearchLayout({
-  children,
-}: PropsWithChildren<{}>) {
-  return <>{children}</>;
+export default async function SearchLayout({ children }: PropsWithChildren) {
+	return <>{children}</>;
 }
